@@ -7,7 +7,9 @@
 `   With this in mind, there needs to be techniques to make this effective
     That's why code which is used more often is optimized more
     - Ignition interpreter - quick startup
+        - Is takes the code and execuites it diretly - INTERPRETS
     - TurboFan optimizing compiler - for code which is run more often
+        - This TRANSLATES the code into machine code - which is slower, but more effective is long run - as it can remember it and then run faster
 
     See the example below - simple example measuring the "add" method (using helper benchmark method)
 */
@@ -27,7 +29,7 @@ function benchmark(label, func, iterationCount = 1, samplingCount = 1) {
             console.time(iterationKey, `Iteration ${i} start`);
         }                
 
-        func();
+        func(i);
 
         if (canSample) {
             console.timeEnd(iterationKey, `Iteration ${i} end`);
@@ -38,12 +40,18 @@ function benchmark(label, func, iterationCount = 1, samplingCount = 1) {
 }
 
 // Is only triggered once - uses Ignition interpreter - it's quick to start but slow to run
-benchmark("add", () => {
+benchmark("add", (_) => {
     add(2, 5)
 });
 
 // This is triggered more times - uses TurboFan (optimizing compiler)
-benchmark("add", () => {
-    add(1, 4)
+// Take note - at 5_000_000 - it is slower due to Garbage Colleciton
+benchmark("add", (i) => {
+    if (i === 2_000_000) {
+        add("Hello", 4) // Simulate unusual execution at 2 million - in this case, it won't be able to use the optimised version, so it uses the interpreter
+    }
+    else {
+        add(1, 4)
+    }
 }, 10_000_000, 1_000_000);
 
