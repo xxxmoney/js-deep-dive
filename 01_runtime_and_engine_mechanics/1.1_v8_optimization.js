@@ -10,6 +10,8 @@
         - Is takes the code and execuites it diretly - INTERPRETS
     - TurboFan optimizing compiler - for code which is run more often
         - This TRANSLATES the code into machine code - which is slower, but more effective is long run - as it can remember it and then run faster
+        - It works as cache - for function name, and parameter types, it caches the machine code (if the function is then called with different parameter types, it uses the de-optimized Ignition interpreter)
+        - Importantly, it DOES NOT cache the return value itself - it just stores the translated machine code of the function - in this example the "add"        
 
     See the example below - simple example measuring the "add" method (using helper benchmark method)
 */
