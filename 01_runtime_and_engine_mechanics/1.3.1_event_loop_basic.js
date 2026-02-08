@@ -6,15 +6,15 @@
     The mechanism itself is the Event Loop - to prioritize execution from primary queue and then use secondary queue
     Primary queue - primary queue - where the main code is executed
     Secondary queue - is essentially two queues
-        - Macrotask Queue - Callback queue
         - Microtask Queue - Job queue
+        - Macrotask Queue - Callback queue        
 
     The order is as follow:
         - Primary queue (the .js file code)
-        - Microtask queue (setTimeout, setInterval, DOM events, etc)
-        - Macrotask queue (Promise.then, queueMicrotask, MutationObserver, etc)
+        - Microtask queue (Promise.then, queueMicrotask, MutationObserver, etc)
+        - Macrotask queue (setTimeout, setInterval, DOM events, etc)
 
-    So firstly execute all the "simple" code, then execute all callbacks and then execute all jobs
+    So firstly execute all the "simple" code, then execute all jobs and then all callbacks
 */
 
 console.log('Start');
@@ -27,7 +27,7 @@ console.log('End');
 // Interestingly, it will be the "Start" console log, the "End" console log, and then the "Timeout callback" console log
 // Amusing right - given the timeout is 0 ms
 
-// It works like this because there are essentally two queues
+// It works like this because there are essentally two main queues
 
 // Let's look at the code:
 // - console.log('Start'); - is added to the primary queue and executed immediately, so "Start" is logged
