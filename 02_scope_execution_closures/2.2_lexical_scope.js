@@ -6,14 +6,14 @@
 // Scoping in JavaScript works interestingly for functions
 // While one would expect the scope to be where the function is called, actually, it is where it's created
 
-const hero = "Batman"; // Global variable for hero
+hero = "Batman"; // Global variable
 
 function revealIdentity() {
     console.log(`Hero is: ${hero}`); // Logging the variable
 }
 
 function trap() {
-    const hero = "Joker"; // Local variable - same name - for this scope, it "overrides" the hero variable
+    var hero = "Joker"; // Local variable - same name - for this scope, it "overrides" the hero variable
     revealIdentity(); // Still uses the global - that's because the revealIdentity is in the global scope
 
     function revealLocalIdentity() {
